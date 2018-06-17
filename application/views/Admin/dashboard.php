@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,165 +9,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="\parish\assets\HTML\css/bootstrap.min.css" />
 <link rel="stylesheet" href="\parish\assets\HTML\css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="\parish\assets\HTML\css/uniform.css" />
-<link rel="stylesheet" href="\parish\assets\HTML\css/select2.css" />
+<link rel="stylesheet" href="\parish\assets\HTML\css/fullcalendar.css" />
 <link rel="stylesheet" href="\parish\assets\HTML\css/matrix-style.css" />
 <link rel="stylesheet" href="\parish\assets\HTML\css/matrix-media.css" />
 <link href="\parish\assets\HTML\font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-
-<style type="text/css">
-    body {
-        color: #404E67;
-        background: #F5F7FA;
-    font-family: 'Open Sans', sans-serif;
-  }
-  .table-wrapper {
-    width: 700px;
-    margin: 30px auto;
-        background: #fff;
-        padding: 20px;  
-        box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    }
-    .table-title {
-        padding-bottom: 10px;
-        margin: 0 0 10px;
-    }
-    .table-title h2 {
-        margin: 6px 0 0;
-        font-size: 22px;
-    }
-    .table-title .add-new {
-        float: right;
-    height: 30px;
-    font-weight: bold;
-    font-size: 12px;
-    text-shadow: none;
-    min-width: 100px;
-    border-radius: 50px;
-    line-height: 13px;
-    }
-  .table-title .add-new i {
-    margin-right: 4px;
-  }
-    table.table {
-        table-layout: fixed;
-    }
-    table.table tr th, table.table tr td {
-        border-color: #e9e9e9;
-    }
-    table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    table.table th:last-child {
-        width: 100px;
-    }
-    table.table td a {
-    cursor: pointer;
-        display: inline-block;
-        margin: 0 5px;
-    min-width: 24px;
-    }    
-  table.table td a.add {
-        color: #27C46B;
-    }
-    table.table td a.edit {
-        color: #FFC107;
-    }
-    table.table td a.delete {
-        color: #E34724;
-    }
-    table.table td i {
-        font-size: 19px;
-    }
-  table.table td a.add i {
-        font-size: 24px;
-      margin-right: -1px;
-        position: relative;
-        top: 3px;
-    }    
-    table.table .form-control {
-        height: 32px;
-        line-height: 32px;
-        box-shadow: none;
-        border-radius: 2px;
-    }
-  table.table .form-control.error {
-    border-color: #f50000;
-  }
-  table.table td .add {
-    display: none;
-  }
-</style>
-<script type="text/javascript">
-  
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-  var actions = $("table td:last-child").html();
-  // Append table with add row form on add new button click
-    $(".add-new").click(function(){
-    $(this).attr("disabled", "disabled");
-    var index = $("table tbody tr:last-child").index();
-        var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="department" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="department" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
-      '<td>' + actions + '</td>' +
-        '</tr>';
-      $("table").append(row);   
-    $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-  // Add row on add button click
-  $(document).on("click", ".add", function(){
-    var empty = false;
-    var input = $(this).parents("tr").find('input[type="text"]');
-        input.each(function(){
-      if(!$(this).val()){
-        $(this).addClass("error");
-        empty = true;
-      } else{
-                $(this).removeClass("error");
-            }
-    });
-    $(this).parents("tr").find(".error").first().focus();
-    if(!empty){
-      input.each(function(){
-        $(this).parent("td").html($(this).val());
-      });     
-      $(this).parents("tr").find(".add, .edit").toggle();
-      $(".add-new").removeAttr("disabled");
-    }   
-    });
-  // Edit row on edit button click
-  $(document).on("click", ".edit", function(){    
-        $(this).parents("tr").find("td:not(:last-child)").each(function(){
-      $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-    });   
-    $(this).parents("tr").find(".add, .edit").toggle();
-    $(".add-new").attr("disabled", "disabled");
-    });
-  // Delete row on delete button click
-  $(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-    $(".add-new").removeAttr("disabled");
-    });
-});
-</script>
-
 </head>
 <body>
 
@@ -215,18 +64,20 @@ $(document).ready(function(){
   <ul>
     <li><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li><a href="charts.html"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
-    <li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
-    <li class="active"><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
+    <li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Bible Readings</span></a> </li>
+    <li class="active"><a href="#"><i class="icon icon-th"></i> <span>Data</span></a></li>
+    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Events</span></a></li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Tables</span> <span class="label label-important">3</span></a>
       <ul>
-        <li><a href="form-common.html">Basic Form</a></li>
-        <li><a href="form-validation.html">Form with Validation</a></li>
-        <li><a href="form-wizard.html">Form with Wizard</a></li>
+        <li><a href="announcements">Announcements</a></li>
+        <li><a href="schedule">Schedule</a></li>
+        <li><a href="form-wizard.html">Seminar</a></li>
+        <li><a href="form-common.html">Tithes</a></li>
+        <li><a href="form-validation.html">User</a></li>
       </ul>
     </li>
     <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
+    <li><a href="interface.html"><i class="icon icon-pencil"></i> <span></span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
       <ul>
         <li><a href="index2.html">Dashboard2</a></li>
@@ -243,232 +94,224 @@ $(document).ready(function(){
         <li><a href="error500.html">Error 500</a></li>
       </ul>
     </li>
-    <li class="content"> <span>Monthly Bandwidth Transfer</span>
-      <div class="progress progress-mini progress-danger active progress-striped">
-        <div style="width: 77%;" class="bar"></div>
-      </div>
-      <span class="percent">77%</span>
-      <div class="stat">21419.94 / 14000 MB</div>
-    </li>
-    <li class="content"> <span>Disk Space Usage</span>
-      <div class="progress progress-mini active progress-striped">
-        <div style="width: 87%;" class="bar"></div>
-      </div>
-      <span class="percent">87%</span>
-      <div class="stat">604.44 / 4000 MB</div>
-    </li>
   </ul>
 </div>
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Tables</a> </div>
-    <h1>Tables</h1>
+    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+  </div>
+  <div  class="quick-actions_homepage">
+    <ul class="quick-actions">
+      <li class="bg_lb"> <a href="#"> <i class="icon-dashboard"></i> My Dashboard </a> </li>
+      <li class="bg_lg"> <a href="#"> <i class="icon-shopping-cart"></i> Shopping Cart</a> </li>
+      <li class="bg_ly"> <a href="#"> <i class=" icon-globe"></i> Web Marketing </a> </li>
+      <li class="bg_lo"> <a href="#"> <i class="icon-group"></i> Manage Users </a> </li>
+      <li class="bg_ls"> <a href="#"> <i class="icon-signal"></i> Check Statistics</a> </li>
+    </ul>
   </div>
   <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box">
+          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+            <h5>Latest Posts</h5>
+          </div>
+          <div class="widget-content nopadding collapse in" id="collapseG2">
+            <ul class="recent-posts">
+              <li>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av1.jpg"> </div>
+                <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
+                  <p><a href="#">This is a much longer one that will go on for a few lines.It has multiple paragraphs and is full of waffle to pad out the comment.</a> </p>
+                </div>
+              </li>
+              <li>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av2.jpg"> </div>
+                <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
+                  <p><a href="#">This is a much longer one that will go on for a few lines.It has multiple paragraphs and is full of waffle to pad out the comment.</a> </p>
+                </div>
+              </li>
+              <li>
+                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av4.jpg"> </div>
+                <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
+                  <p><a href="#">This is a much longer one that will go on for a few lines.Itaffle to pad out the comment.</a> </p>
+                </div>
+              <li>
+                <button class="btn btn-warning btn-mini">View All</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+            <h5>To Do list</h5>
+          </div>
+          <div class="widget-content">
+            <div class="todo">
+              <ul>
+                <li class="clearfix">
+                  <div class="txt"> Luanch This theme on Themeforest <span class="by label">Nirav</span> <span class="date badge badge-important">Today</span> </div>
+                  <div class="pull-right"> <a class="tip" href="#" title="Edit Task"><i class="icon-pencil"></i></a> <a class="tip" href="#" title="Delete"><i class="icon-remove"></i></a> </div>
+                </li>
+                <li class="clearfix">
+                  <div class="txt"> Manage Pending Orders <span class="by label">Alex</span> <span class="date badge badge-warning">Today</span> </div>
+                  <div class="pull-right"> <a class="tip" href="#" title="Edit Task"><i class="icon-pencil"></i></a> <a class="tip" href="#" title="Delete"><i class="icon-remove"></i></a> </div>
+                </li>
+                <li class="clearfix">
+                  <div class="txt"> MAke your desk clean <span class="by label">Admin</span> <span class="date badge badge-success">Tomorrow</span> </div>
+                  <div class="pull-right"> <a class="tip" href="#" title="Edit Task"><i class="icon-pencil"></i></a> <a class="tip" href="#" title="Delete"><i class="icon-remove"></i></a> </div>
+                </li>
+                <li class="clearfix">
+                  <div class="txt"> Today we celebrate the great looking theme <span class="by label">Admin</span> <span class="date badge badge-info">08.03.2013</span> </div>
+                  <div class="pull-right"> <a class="tip" href="#" title="Edit Task"><i class="icon-pencil"></i></a> <a class="tip" href="#" title="Delete"><i class="icon-remove"></i></a> </div>
+                </li>
+                <li class="clearfix">
+                  <div class="txt"> Manage all the orders <span class="by label">Mark</span> <span class="date badge badge-info">12.03.2013</span> </div>
+                  <div class="pull-right"> <a class="tip" href="#" title="Edit Task"><i class="icon-pencil"></i></a> <a class="tip" href="#" title="Delete"><i class="icon-remove"></i></a> </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span6">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+            <h5>Progress Box</h5>
+          </div>
+          <div class="widget-content">
+            <ul class="unstyled">
+              <li> <span class="icon24 icomoon-icon-arrow-up-2 green"></span> 81% Clicks <span class="pull-right strong">567</span>
+                <div class="progress progress-striped ">
+                  <div style="width: 81%;" class="bar"></div>
+                </div>
+              </li>
+              <li> <span class="icon24 icomoon-icon-arrow-up-2 green"></span> 72% Uniquie Clicks <span class="pull-right strong">507</span>
+                <div class="progress progress-success progress-striped ">
+                  <div style="width: 72%;" class="bar"></div>
+                </div>
+              </li>
+              <li> <span class="icon24 icomoon-icon-arrow-down-2 red"></span> 53% Impressions <span class="pull-right strong">457</span>
+                <div class="progress progress-warning progress-striped ">
+                  <div style="width: 53%;" class="bar"></div>
+                </div>
+              </li>
+              <li> <span class="icon24 icomoon-icon-arrow-up-2 green"></span> 3% Online Users <span class="pull-right strong">8</span>
+                <div class="progress progress-danger progress-striped ">
+                  <div style="width: 3%;" class="bar"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="widget-box">
+          <div class="widget-title bg_lo"  data-toggle="collapse" href="#collapseG3" > <span class="icon"> <i class="icon-chevron-down"></i> </span>
+            <h5>News updates</h5>
+          </div>
+          <div class="widget-content nopadding updates collapse in" id="collapseG3">
+            <div class="new-update clearfix"><i class="icon-ok-sign"></i>
+              <div class="update-done"><a title="" href="#"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</strong></a> <span>dolor sit amet, consectetur adipiscing eli</span> </div>
+              <div class="update-date"><span class="update-day">20</span>jan</div>
+            </div>
+            <div class="new-update clearfix"> <i class="icon-gift"></i> <span class="update-notice"> <a title="" href="#"><strong>Congratulation Maruti, Happy Birthday </strong></a> <span>many many happy returns of the day</span> </span> <span class="update-date"><span class="update-day">11</span>jan</span> </div>
+            <div class="new-update clearfix"> <i class="icon-move"></i> <span class="update-alert"> <a title="" href="#"><strong>Maruti is a Responsive Admin theme</strong></a> <span>But already everything was solved. It will ...</span> </span> <span class="update-date"><span class="update-day">07</span>Jan</span> </div>
+            <div class="new-update clearfix"> <i class="icon-leaf"></i> <span class="update-done"> <a title="" href="#"><strong>Envato approved Maruti Admin template</strong></a> <span>i am very happy to approved by TF</span> </span> <span class="update-date"><span class="update-day">05</span>jan</span> </div>
+            <div class="new-update clearfix"> <i class="icon-question-sign"></i> <span class="update-notice"> <a title="" href="#"><strong>I am alwayse here if you have any question</strong></a> <span>we glad that you choose our template</span> </span> <span class="update-date"><span class="update-day">01</span>jan</span> </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <hr>
     <div class="row-fluid">
       <div class="span12">
-        <div class="widget-box">
-          <div class="col-sm-8"> <span class="icon"></span><h5>Data table</h5>
-          </div>
-          <div class="widget-content nopadding">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
+        <div class="widget-box widget-calendar">
+          <div class="widget-title"> <span class="icon"><i class="icon-calendar"></i></span>
+            <h5>Calendar</h5>
+            <div class="buttons"> <a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i> Add new event</a>
+              <div class="modal hide" id="modal-add-event">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+                  <h3>Add a new event</h3>
                 </div>
-            </div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Announcement ID</th>
-                  <th>Announcement Name</th>
-                  <th>Announcement Type</th>
-                  <th>Announcement Date</th>
-                  <th>Announcement Time</th>
-                  <th>Announcement Details</th>
-                </tr>
-              </thead>
-                <tbody>
-                    <tr>
-                        <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                         
-                </tbody>
-            </table>
-            <div class="widget-box">
-          <div class="col-sm-8"> <span class="icon"></span><h5>Data table</h5>
-          </div>
-          <div class="widget-content nopadding">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
+                <div class="modal-body">
+                  <p>Enter event name:</p>
+                  <p>
+                    <input id="event-name" type="text" />
+                  </p>
                 </div>
+                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">Cancel</a> <a href="#" id="add-event-submit" class="btn btn-primary">Add event</a> </div>
+              </div>
             </div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Schedule ID</th>
-                  <th>Schedule Date</th>
-                  <th>Schedule Type</th>
-                  <th>User ID</th>
-                  <th>Venue ID</th>
-                </tr>
-              </thead>
-                <tbody>
-                    <tr>
-                        <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                         
-                </tbody>
-            </table>
-            <div class="widget-box">
-          <div class="col-sm-8"> <span class="icon"></span><h5>Data table</h5>
           </div>
-          <div class="widget-content nopadding">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
-                </div>
+          <div class="widget-content">
+            <div class="panel-left">
+              <div id="fullcalendar"></div>
             </div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                   <th>Seminar ID</th>
-                  <th>Seminar Name</th>
-                  <th>Seminar Detailes</th>
-                  <th>Seminar Time</th>
-                  <th>Seminar Start Date</th>
-                  <th>Seminar End Date</th>
-                  <th>Seminar Status</th>
-                </tr>
-              </thead>
-                <tbody>
-                    <tr>
-                        <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                         
-                </tbody>
-            </table>
-            <div class="widget-box">
-          <div class="col-sm-8"> <span class="icon"></span><h5>Data table</h5>
+            <div id="external-events" class="panel-right">
+              <div class="panel-title">
+                <h5>Drag Events to the calander</h5>
+              </div>
+              <div class="panel-content">
+                <div class="external-event ui-draggable label label-inverse">My Event 1</div>
+                <div class="external-event ui-draggable label label-inverse">My Event 2</div>
+                <div class="external-event ui-draggable label label-inverse">My Event 3</div>
+                <div class="external-event ui-draggable label label-inverse">My Event 4</div>
+                <div class="external-event ui-draggable label label-inverse">My Event 5</div>
+              </div>
+            </div>
           </div>
-          <div class="widget-content nopadding">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Tithes ID</th>
-                  <th>Tithes FirstName</th>
-                  <th>Tithes Middle Initial</th>
-                  <th>Tithes Last Name</th>
-                  <th>Tithes Amount</th>
-                  <th>Tithes Date</th>
-                  <th>Tithes Purpose</th>
-                  <th>Tithes Source</th>
-                </tr>
-              </thead>
-                <tbody>
-                    <tr>
-                        <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                         
-                </tbody>
-            </table>
-            <div class="widget-box">
-          <div class="col-sm-8"> <span class="icon"></span><h5>Data table</h5>
-          </div>
-          <div class="widget-content nopadding">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Announcement ID</th>
-                  <th>Announcement Name</th>
-                  <th>Announcement Type</th>
-                  <th>Announcement Date</th>
-                  <th>Announcement Time</th>
-                  <th>Announcement Details</th>
-                </tr>
-              </thead>
-                <tbody>
-                    <tr>
-                        <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                         
-                </tbody>
-            </table>
-            <div class="widget-box">
-          <div class="col-sm-8"> <span class="icon"></span><h5>Data table</h5>
-          </div>
-          <div class="widget-content nopadding">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Announcement ID</th>
-                  <th>Announcement Name</th>
-                  <th>Announcement Type</th>
-                  <th>Announcement Date</th>
-                  <th>Announcement Time</th>
-                  <th>Announcement Details</th>
-                </tr>
-              </thead>
-                <tbody>
-                    <tr>
-                        <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                         
-                </tbody>
-            </table>
         </div>
-    </div>                                
+      </div>
+    </div>
+  </div>
 </div>
-
-
-
+<!--Footer-part-->
+<div class="row-fluid">
+  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
+</div>
+<!--end-Footer-part-->
+<script src="\parish\assets\HTML\js/excanvas.min.js"></script> 
 <script src="\parish\assets\HTML\js/jquery.min.js"></script> 
 <script src="\parish\assets\HTML\js/jquery.ui.custom.js"></script> 
 <script src="\parish\assets\HTML\js/bootstrap.min.js"></script> 
+<script src="\parish\assets\HTML\js/jquery.flot.min.js"></script> 
+<script src="\parish\assets\HTML\js/jquery.flot.resize.min.js"></script> 
+<script src="\parish\assets\HTML\js/jquery.peity.min.js"></script> 
+<script src="\parish\assets\HTML\js/matrix.js"></script> 
+<script src="\parish\assets\HTML\js/fullcalendar.min.js"></script> 
+<script src="\parish\assets\HTML\js/matrix.calendar.js"></script> 
+<script src="\parish\assets\HTML\js/matrix.chat.js"></script> 
+<script src="\parish\assets\HTML\js/jquery.validate.js"></script> 
+<script src="\parish\assets\HTML\js/matrix.form_validation.js"></script> 
+<script src="\parish\assets\HTML\js/jquery.wizard.js"></script> 
 <script src="\parish\assets\HTML\js/jquery.uniform.js"></script> 
 <script src="\parish\assets\HTML\js/select2.min.js"></script> 
+<script src="\parish\assets\HTML\js/matrix.popover.js"></script> 
 <script src="\parish\assets\HTML\js/jquery.dataTables.min.js"></script> 
-<script src="\parish\assets\HTML\js/matrix.js"></script> 
-<script src="\parish\assets\HTML\js/matrix.tables.js"></script>
+<script src="\parish\assets\HTML\js/matrix.tables.js"></script> 
+<script src="\parish\assets\HTML\js/matrix.interface.js"></script> 
+<script type="text/javascript">
+  // This function is called from the pop-up menus to transfer to
+  // a different page. Ignore if the value returned is a null string:
+  function goPage (newURL) {
+
+      // if url is empty, skip the menu dividers and reset the menu selection to default
+      if (newURL != "") {
+      
+          // if url is "-", it is this page -- reset the menu:
+          if (newURL == "-" ) {
+              resetMenu();            
+          } 
+          // else, send page to designated URL            
+          else {  
+            document.location.href = newURL;
+          }
+      }
+  }
+
+// resets the menu selection upon entry to this page:
+function resetMenu() {
+   document.gomenu.selector.selectedIndex = 2;
+}
+</script>
 </body>
 </html>

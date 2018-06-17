@@ -50,4 +50,34 @@ class Admin extends CI_Controller {
 		$this->load->view('Admin/dashboard');
 		
 	}
+
+	public function announcements()
+	{
+		$this->load->view('Admin/announcements');
+		
+	}
+
+	public function schedule()
+	{
+		$this->load->view('Admin/schedule');
+		
+	}
+
+	public function seminar()
+	{
+		$this->load->view('Admin/seminar');
+		
+	}
+
+	public function tithes()
+	{
+		$this->load->view('Admin/tithes');
+		
+	}
+
+	public function user()
+	{
+		$this->load->view('Admin/user');
+		
+	}
 }?>
