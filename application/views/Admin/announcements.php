@@ -115,12 +115,12 @@ $(document).ready(function(){
     $(this).attr("disabled", "disabled");
     var index = $("table tbody tr:last-child").index();
         var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="name" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="name" id="phone"></td>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="name" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="name" id="phone"></td>' +
+            '<td><input type="text" class="form-control" name="an_id" id="name" disabled></td>' +
+            '<td><input type="text" class="form-control" name="an_name" id="department" required></td>' +
+            '<td><input type="text" class="form-control" name="an_type" id="phone" required></td>' +
+            '<td><input type="text" class="form-control" name="an_date" id="name" required></td>' +
+            '<td><input type="text" class="form-control" name="an_time" id="department" required></td>' +
+            '<td><input type="text" class="form-control" name="an_details" id="phone" required></td>' +
              '<td>' + actions + '</td>' +
         '</tr>';
       $("table").append(row);   
@@ -128,26 +128,7 @@ $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
   // Add row on add button click
-  $(document).on("click", ".add", function(){
-    var empty = false;
-    var input = $(this).parents("tr").find('input[type="text"]');
-        input.each(function(){
-      if(!$(this).val()){
-        $(this).addClass("error");
-        empty = true;
-      } else{
-                $(this).removeClass("error");
-            }
-    });
-    $(this).parents("tr").find(".error").first().focus();
-    if(!empty){
-      input.each(function(){
-        $(this).parent("td").html($(this).val());
-      });     
-      $(this).parents("tr").find(".add, .edit").toggle();
-      $(".add-new").removeAttr("disabled");
-    }   
-    });
+  
   // Edit row on edit button click
   $(document).on("click", ".edit", function(){    
         $(this).parents("tr").find("td:not(:last-child)").each(function(){
@@ -263,6 +244,7 @@ $(document).ready(function(){
                     </div>-->
                 </div>
             </div>
+			<form method = "post">
             <table class="table table-bordered">
               <thead>
                 <tr>
@@ -274,11 +256,14 @@ $(document).ready(function(){
                   <th>Announcement Details</th>
                   <th><button type="button" style="font-size: 10px"class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button></th>
                 </tr>
+				<?php
+					echo $list;
+				?>
               </thead>
-                <tbody>
+                <tbody>	
                     <tr>
                         <td>
-              <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+              <button type="submit" name ="add" class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></button>
                             <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
@@ -286,6 +271,7 @@ $(document).ready(function(){
                          
                 </tbody>
             </table>
+			</form>
 
 
 

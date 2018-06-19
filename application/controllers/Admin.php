@@ -36,7 +36,7 @@ class Admin extends CI_Controller {
 			extract($_POST);
             $result = $this->model->LogIn($username,$password);
             var_dump($result);
-            header('Location: http://localhost:1080/parish/Admin/dashboard');
+            header('Location: http://localhost/parish/Admin/dashboard');
         }
         else
         {
@@ -53,7 +53,26 @@ class Admin extends CI_Controller {
 
 	public function announcements()
 	{
-		$this->load->view('Admin/announcements');
+		$data = array();
+		$data['list'] = '';
+		$stmt = $this->model->GetAnnouncement();
+		foreach($stmt->result() as $row)
+		{
+			$data['list'] .= $this->load->view('Admin/AnList',$row,TRUE);
+		}
+		
+			
+		if(isset($_POST['add']))
+		{
+			extract($_POST);
+			$this->model->AddAnnouncement($an_name, $an_type, $an_date, $an_time, $an_details);
+			header('Location: http://localhost/parish/Admin/announcements');
+		}
+		else
+		{
+			$this->load->view('Admin/announcements',$data);
+		}
+		
 		
 	}
 

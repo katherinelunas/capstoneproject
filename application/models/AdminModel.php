@@ -24,7 +24,43 @@ Class AdminModel extends CI_Model
         }
     }
     
+	public function GetAnnouncement() //Conditions to follow
+	{
+		
+		try
+        {
+			$sql = " SELECT * FROM announcement";
+			$stmt = $this->pdo->query($sql);
+            
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+	}
 	
+	public function AddAnnouncement($an_name, $an_type, $an_date, $an_time, $an_details)
+	{
+		try
+		{
+			$sql = "INSERT INTO announcement
+					SET an_name = ?,
+					an_type = ?,
+					an_date = ?,
+					an_time = ?,
+					an_details = ?
+					";
+			$stmt = $this->pdo->query($sql,array($an_name, $an_type, $an_date, $an_time, $an_details));
+			return $stmt;
+		}
+		catch (Exception $ex)
+		{
+			echo $ex;
+            exit;
+		}
+	}
 	
 	
 
